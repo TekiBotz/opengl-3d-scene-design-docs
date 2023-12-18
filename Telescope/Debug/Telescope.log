@@ -1,0 +1,3 @@
+﻿  Source.cpp
+C:\CS-330_Projects\Telescope\Telescope\Source.cpp(39,28): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Telescope.vcxproj -> C:\CS-330_Projects\Telescope\Debug\Telescope.exe
