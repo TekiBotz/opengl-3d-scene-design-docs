@@ -9,21 +9,16 @@
 #include "stb_image.h"
 #include <iostream>
 
-// OpenGL Sample Project
+// Function prototypes
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
-void processInput(GLFWwindow* window);
-
-// Function prototypes
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
 // Window settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
-// OpenGL Sample Project
 // camera
 Camera camera(glm::vec3(0.0f, 0.2f, 1.0f));
 float lastX = SCR_WIDTH / 2.0f;
@@ -44,11 +39,11 @@ bool isOrtho = true;
 glm::float32 triRotations[] = { 0.0f, 60.0f, 120.0f, 180.0f, 240.0f, 300.0f };
 
 // Vertex and fragment shader source code
-// I modified both the vertex and fragment shader using code from loeanOpenGL coordinate section (ourShader "6.2.coordinate_system.vs")
+// I modified both the vertex and fragment shader using code from LearnOpenGL coordinate section (ourShader "6.2.coordinate_system.vs")
 const char* vertexShaderSource = "#version 330 core\n"
 "layout (location = 0) in vec3 aPos;\n"
 "layout (location = 1) in vec3 aColor;\n"
-"layout (location = 2) in vec2 aTexCoord;\n"    // LoeanOpenGL coordinate section 
+"layout (location = 2) in vec2 aTexCoord;\n"    // LearnOpenGL coordinate section 
 "out vec3 ourColor;\n"
 "out vec2 TexCoord;\n"
 "uniform mat4 model;\n"
@@ -58,12 +53,12 @@ const char* vertexShaderSource = "#version 330 core\n"
 "{\n"
 "   gl_Position = projection * view * model * vec4(aPos, 1.0f);\n"
 "   ourColor = aColor;\n"
-"   TexCoord = vec2(aTexCoord.x, aTexCoord.y);\n"   // LoeanOpenGL coordinate section 
+"   TexCoord = vec2(aTexCoord.x, aTexCoord.y);\n"   // LearnOpenGL coordinate section 
 "}\0";
 const char* fragmentShaderSource = "#version 330 core\n"
 "out vec4 FragColor;\n"
 "in vec3 ourColor;\n"
-"in vec2 TexCoord;\n"   // LoeanOpenGL coordinate section 
+"in vec2 TexCoord;\n"   // LearnOpenGL coordinate section 
 "uniform sampler2D myTexture;\n"
 "void main()\n"
 "{\n"
@@ -93,7 +88,6 @@ int main()
         glfwTerminate();
         return -1;
     }
-    // OpenGL Sample Project
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetCursorPosCallback(window, mouse_callback);
@@ -222,7 +216,6 @@ int main()
     };
 
     // Pyramid Vertex
-    // This shape was taken from my previous project
     float pyramidVertices[] = {
          0.1f,  0.1f, 0.0f,  0.0f, 0.0f, 1.0f,  1.0f, 1.0f, // bottom right 0  Blue
          0.1f, -0.1f, 0.0f,  1.0f, 1.0f, 0.0f,  1.0f, 0.0f, // bottom left 1   Yellow
@@ -415,7 +408,6 @@ int main()
     // Render Loop
     while (!glfwWindowShouldClose(window))
     {
-        // OpenGL Sample Project
         // per-frame time logic
         // --------------------
         float currentFrame = static_cast<float>(glfwGetTime());
@@ -433,10 +425,6 @@ int main()
         glUseProgram(shaderProgram);
 
         // View and projection matrices
-        //glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f); // OpenGLSample-2Objects
-        //        glm::mat4 projection = glm::ortho(-1.5f, 1.5f, -1.5f, 1.5f, 0.1f, 100.0f); // OpenGL (Camera) section in learnOpenGL
-
-        
                 glm::mat4 projection;
                 if (isOrtho) {
                     // OpenGL (Camera) section in learnOpenGL
@@ -459,7 +447,6 @@ int main()
                 //modelCube = glm::rotate(modelCube, 0.0f * toRadians, glm::vec3(0.0f, 0.0f, -1.0f)); // Add rotation
                 modelLeg = glm::scale(modelLeg, glm::vec3(0.2f, 0.2f, 0.5f)); // Add scaling
                 // Pass Transformations to the Shader
-                // CS-330-master (Module 03 , Tutorial_03_05)
                 glUniformMatrix4fv(cubeModelLoc, 1, GL_FALSE, glm::value_ptr(modelLeg));
                 glUniformMatrix4fv(cubeViewLoc, 1, GL_FALSE, glm::value_ptr(view));
                 glUniformMatrix4fv(cubeProjectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
@@ -549,7 +536,6 @@ int main()
             tube = glm::rotate(tube, glm::radians(triRotations[i]), glm::vec3(0.0f, 0.0f, 1.0f)); // Rotate strip on z by increments in array
             tube = glm::scale(tube, glm::vec3(0.05f, 0.05f, 0.1f)); // Add scaling
             // Pass Transformations to the Shader
-            // CS-330-master (Module 03 , Tutorial_03_05)
             glUniformMatrix4fv(cubeModelLoc, 1, GL_FALSE, glm::value_ptr(tube));
             glUniformMatrix4fv(cubeViewLoc, 1, GL_FALSE, glm::value_ptr(view));
             glUniformMatrix4fv(cubeProjectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
@@ -574,7 +560,6 @@ int main()
             eye = glm::rotate(eye, glm::radians(triRotations[i]), glm::vec3(0.0f, 0.0f, 1.0f)); // Rotate strip on z by increments in array
             eye = glm::scale(eye, glm::vec3(0.008f, 0.008f, 0.015f)); // Add scaling
             // Pass Transformations to the Shader
-            // CS-330-master (Module 03 , Tutorial_03_05)
             glUniformMatrix4fv(cubeModelLoc, 1, GL_FALSE, glm::value_ptr(eye));
             glUniformMatrix4fv(cubeViewLoc, 1, GL_FALSE, glm::value_ptr(view));
             glUniformMatrix4fv(cubeProjectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
@@ -597,7 +582,6 @@ int main()
             scope = glm::rotate(scope, glm::radians(triRotations[i]), glm::vec3(0.0f, 0.0f, 1.0f)); // Rotate strip on z by increments in array
             scope = glm::scale(scope, glm::vec3(0.008f, 0.008f, 0.015f)); // Add scaling
             // Pass Transformations to the Shader
-            // CS-330-master (Module 03 , Tutorial_03_05)
             glUniformMatrix4fv(cubeModelLoc, 1, GL_FALSE, glm::value_ptr(scope));
             glUniformMatrix4fv(cubeViewLoc, 1, GL_FALSE, glm::value_ptr(view));
             glUniformMatrix4fv(cubeProjectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
@@ -616,7 +600,6 @@ int main()
         modelPlane = glm::rotate(modelPlane, 90.0f * toRadians, glm::vec3(-1.0f, 0.0f, 0.0f)); // Add rotation
         modelPlane = glm::scale(modelPlane, glm::vec3(3.0f, 3.0f, 0.1f)); // Add scaling
         // Pass Transformations to the Shader
-        // CS-330-master (Module 03 , Tutorial_03_05)
         glUniformMatrix4fv(cubeModelLoc, 1, GL_FALSE, glm::value_ptr(modelPlane));
         glUniformMatrix4fv(cubeViewLoc, 1, GL_FALSE, glm::value_ptr(view));
         glUniformMatrix4fv(cubeProjectionLoc, 1, GL_FALSE, glm::value_ptr(projection));

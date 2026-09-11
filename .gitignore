@@ -1,0 +1,29 @@
+# Build output
+[Dd]ebug/
+[Rr]elease/
+[Xx]64/
+[Xx]86/
+[Bb]in/
+[Oo]bj/
+*.exe
+*.dll
+*.pdb
+*.ilk
+*.obj
+*.idb
+*.log
+*.tlog
+*.recipe
+*.lastbuildstate
+
+# Visual Studio per-user / IDE state
+.vs/
+*.vcxproj.user
+*.VC.db
+*.VC.opendb
+*.suo
+*.user
+
+# OS cruft
+.DS_Store
+Thumbs.db
